@@ -86,11 +86,13 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             geometry = geometry.substr( 0, geometry.length - 1 );
             geometry += "))";
             $.ajax({
-                url:"https://kartor.helsingborg.se/fme-proxy/fme/" + this.config.download_service + "/datadownload",
-                type: "post",
+                url:"https://fmeserver.hbgadm.hbgstad.se/fmedatadownload/" + this.config.download_service,
+                type: "post",             
                 data: {
                         "geom" : geometry,
-                        "email": $('#email').val()
+                        "opt_responseformat":  "json",
+                        "opt_servicemode": "async",
+                        "opt_requesteremail": $('#email').val()
                 },
                 dataType: "json",
                 success:function(data) {
@@ -105,10 +107,13 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
 
         updateJobStatus: function(id) {
             $.ajax({
-                url:"https://kartor.helsingborg.se/fme-proxy/fme/jobs/" + id,
+                url:"https://fmeserver.hbgadm.hbgstad.se/fmerest/v2/transformations/jobs/id/" + id + "?detail=low",
                 type: "get",
+                beforeSend: function(request) {
+                    request.setRequestHeader("Authorization", 'fmetoken token=08698079bee68785ebd21fc6ecfb58b66baa9492');
+                },                  
                 success:function(data) {
-                    data = JSON.parse(data);
+                    //data = JSON.parse(data);
                     $("#" + data.id ).html(this.statusSymbol(data.status) + this.statusMessage(data) );
 
                     if(data.status != "SUCCESS" && data.status != "FAILED") {

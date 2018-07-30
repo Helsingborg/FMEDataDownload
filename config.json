@@ -1,5 +1,5 @@
 {
-    "download_service":"dwg_download_service",
+    "download_service":"test/dwg_download_service.fmw",
     "subHeading":"DWG",
     "helpText": "Tryck på 'Rita' för att markera ett område i kartan. Fyll i din mail och tryck därefter på 'Beställ'. Ett mail kommer skickas till dig inom kort.",
     "footer": "Dataägare: kartomat@helsingborg.se <br> IT-support: itgis@helsingborg.se"

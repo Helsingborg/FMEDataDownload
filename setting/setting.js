@@ -51,6 +51,7 @@ define([
             this.config.subHeading = this.subHeading.value;
             this.config.helpText = this.helpText.value;
             this.config.footer = this.footer.value;
+            this.config.download_service = this.downloadService.value;
 
             return this.config;
         }
