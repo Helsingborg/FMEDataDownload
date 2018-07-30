@@ -19,32 +19,13 @@ define([
             } else {
                 this.getConfig();
             }
-            
         },
         startup: function() {
 
         },
 
-        setConfig:function(config) {
-            console.log("setconfig", config);
- 
+        setConfig:function(config) { 
             this.config = config;
-
-            if(this.config.locale){
-            	this.selectCyclomediaLocation.set("value", this.config.locale);
-            }
-            if(this.config.uName){
-            	this.uNameCyclomedia.value = this.config.uName;
-            }
-            if(this.config.uPwd){
-            	this.uPwdCyclomedia.value = this.config.uPwd;
-            }
-            if(this.config.agreement){
-                this.agreementCheck.value = this.config.agreement;
-            }
-
-            
-
         },
 
         getConfig: function () {

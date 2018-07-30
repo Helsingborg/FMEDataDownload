@@ -89,7 +89,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
                 url:"https://fmeserver.hbgadm.hbgstad.se/fmedatadownload/" + this.config.download_service,
                 type: "post",             
                 data: {
-                        "geom" : geometry,
+                        "GEOM" : geometry,
                         "opt_responseformat":  "json",
                         "opt_servicemode": "async",
                         "opt_requesteremail": $('#email').val()
