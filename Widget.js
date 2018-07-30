@@ -86,7 +86,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             geometry = geometry.substr( 0, geometry.length - 1 );
             geometry += "))";
             $.ajax({
-                url:"https://fmeserver.hbgadm.hbgstad.se/fmedatadownload/" + this.config.download_service,
+                url: this.config.fme_server_url + "/fmedatadownload/" + this.config.download_service,
                 type: "post",             
                 data: {
                         "GEOM" : geometry,
@@ -107,11 +107,11 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
 
         updateJobStatus: function(id) {
             $.ajax({
-                url:"https://fmeserver.hbgadm.hbgstad.se/fmerest/v2/transformations/jobs/id/" + id + "?detail=low",
+                url: this.config.fme_server_url + "/fmerest/v2/transformations/jobs/id/" + id + "?detail=low",
                 type: "get",
                 beforeSend: function(request) {
                     request.setRequestHeader("Authorization", 'fmetoken token=' + this.config.fmw_server_token);
-                },                  
+                }.bind(this),                  
                 success:function(data) {
                     //data = JSON.parse(data);
                     $("#" + data.id ).html(this.statusSymbol(data.status) + this.statusMessage(data) );
