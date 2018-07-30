@@ -103,20 +103,6 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             });
         },
 
-        testCrossDomainRequest: function() {
-            $.ajax({
-                //url:"https://fmeserver.hbgadm.hbgstad.se/fmejobsubmitter/SMap/dummy.fmw?opt_showresult=false&opt_servicemode=async",
-		url: "https://arcgisserver.hbgadm.hbgstad.se/arcgis/rest/services/Geokodning/Adressok/GeocodeServer/suggest?f=json&text=k&maxSuggestions=6",
-                type: "get",
-                success:function(data) {
-                    alert("success request to fme server!");
-                }.bind(this),
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert("fail request to fme server!");
-                }
-            });
-        },
-
         updateJobStatus: function(id) {
             $.ajax({
                 url:"https://kartor.helsingborg.se/fme-proxy/fme/jobs/" + id,
