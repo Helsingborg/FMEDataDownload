@@ -110,7 +110,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
                 url:"https://fmeserver.hbgadm.hbgstad.se/fmerest/v2/transformations/jobs/id/" + id + "?detail=low",
                 type: "get",
                 beforeSend: function(request) {
-                    request.setRequestHeader("Authorization", 'fmetoken token=08698079bee68785ebd21fc6ecfb58b66baa9492');
+                    request.setRequestHeader("Authorization", 'fmetoken token=' + this.config.fmw_server_token);
                 },                  
                 success:function(data) {
                     //data = JSON.parse(data);
