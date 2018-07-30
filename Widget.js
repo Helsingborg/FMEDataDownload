@@ -21,7 +21,6 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             on(dom.byId("draw"), "click", this.drawPolygon.bind(this));
             on(dom.byId("reset"), "click", this.drawReset.bind(this));
             on(dom.byId("download"), "click", this.download.bind(this));
-            this.testCrossDomainRequest();
         },
         baseClass: 'jimu-widget-mywidget',
 
@@ -65,12 +64,12 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
 
         download: function() {
             if(typeof this.clippingGeometry == 'undefined') {
-                alert("V�nligen kontrollera att du ritat ut ditt intresseomr�de.");
+                alert("Vänligen kontrollera att du ritat ut ditt intresseomräde.");
                 return;
             }
 
             if(!this.validateEmail($('#email').val())) {
-                alert("V�nligen kontrollera att du angivit en korrekt epostadress.");
+                alert("Vänligen kontrollera att du angivit en korrekt epostadress.");
                 return;
             }
 
@@ -148,10 +147,10 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
         },
 
         statusMessages: {
-            QUEUED: "Din best�llning med id=_ID_ �r placerad i k�",
-            PULLED: "Din best�llning med id=_ID_ behandlas nu",
-            SUCCESS: "Din best�llning med id=_ID_ har levererats!",
-            FAILED: "N�gonting gick fel med id=_ID_...",
+            QUEUED: "Din beställning med id=_ID_ är placerad i kö",
+            PULLED: "Din beställning med id=_ID_ behandlas nu",
+            SUCCESS: "Din beställning med id=_ID_ har levererats!",
+            FAILED: "Någonting gick fel med id=_ID_...",
         },
 
         statusSymbols: {
