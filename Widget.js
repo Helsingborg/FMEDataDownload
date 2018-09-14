@@ -10,17 +10,16 @@ define([
     "esri/symbols/SimpleLineSymbol",
     'esri/geometry/webMercatorUtils',
     'esri/graphic',
-    //"jimu/loaderplugins/jquery-loader!https://code.jquery.com/jquery-git1.min.js",
     "jimu/loaderplugins/jquery-loader!https://code.jquery.com/jquery-git.min.js"
 ],
 function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, SimpleLineSymbol, webMercatorUtils, Graphic, $) {
     return declare([BaseWidget], {
         startup: function() {
             this.toolbar = new Draw(this.map);
-            dojo.connect(this.toolbar, "onDrawEnd", this.addToMap.bind(this));
-            on(dom.byId("draw"), "click", this.drawPolygon.bind(this));
-            on(dom.byId("reset"), "click", this.drawReset.bind(this));
-            on(dom.byId("download"), "click", this.download.bind(this));
+            dojo.connect(this.toolbar, "onDrawEnd", this.addToMap.bind(this));                        
+            on(dom.byId('draw-' + this.id), "click", this.drawPolygon.bind(this));
+            on(dom.byId('reset-' + this.id), "click", this.drawReset.bind(this));
+            on(dom.byId('download-' + this.id), "click", this.download.bind(this));
         },
         baseClass: 'jimu-widget-mywidget',
 
@@ -42,19 +41,21 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
 		},
 
 		drawPolygon: function () {
+            console.log("Draw pressed!")
             this.drawReset();
 			this.toolbar.activate( Draw.POLYGON );
 		},
 
 		drawReset: function () {
+            console.log("Draw reset pressed!")
 			this.toolbar.deactivate( Draw.POLYGON );
 			this.map.graphics.clear();
         },
 
         bindEvents: function() {
             dojo.connect(this.toolbar, "onDrawEnd", this.addToMap);
-            on(dom.byId("draw"), "click", this.drawPolygon);
-            on(dom.byId("reset"), "click", this.drawReset);
+            on(dom.byId("draw-" + this.id), "click", this.drawPolygon);
+            on(dom.byId("reset-" + this.id), "click", this.drawReset);
         },
 
         validateEmail: function(email) {
@@ -68,7 +69,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
                 return;
             }
 
-            if(!this.validateEmail($('#email').val())) {
+            if(!this.validateEmail($("#email-" + this.id).val())) {
                 alert("Vänligen kontrollera att du angivit en korrekt epostadress.");
                 return;
             }
@@ -86,17 +87,17 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             geometry = geometry.substr( 0, geometry.length - 1 );
             geometry += "))";
             $.ajax({
-                url: this.config.fme_server_url + "/fmedatadownload/" + this.config.download_service,
+                url: this.config.fme_server_url + "/fmedatadownload/" + this.config.downloadService,
                 type: "post",             
                 data: {
                         "GEOM" : geometry,
                         "opt_responseformat":  "json",
                         "opt_servicemode": "async",
-                        "opt_requesteremail": $('#email').val()
+                        "opt_requesteremail": $('#email-' + this.id).val()
                 },
                 dataType: "json",
                 success:function(data) {
-                    var results = $('#status').append('<div id="' + data.serviceResponse.jobID + '"></div>')
+                    var results = $('#status-' + this.id).append('<div id="' + data.serviceResponse.jobID + '"></div>')
                     this.updateJobStatus(data.serviceResponse.jobID);
                 }.bind(this),
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -124,6 +125,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
                     console.log(data);
                 }.bind(this),
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Någonting gick fel, vänligen kontakta sbf.itgis@helsingborg.se")
                     console.log("Status: " + textStatus);
                 }
             });
@@ -141,7 +143,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             QUEUED: "Din beställning med id=_ID_ är placerad i kö",
             PULLED: "Din beställning med id=_ID_ behandlas nu",
             SUCCESS: "Din beställning med id=_ID_ har levererats!",
-            FAILED: "Någonting gick fel med id=_ID_...",
+            FAILED: "Någonting gick fel med id=_ID_. Vänligen kontakta sbf.itgis@helsingborg.se",
         },
 
         statusSymbols: {

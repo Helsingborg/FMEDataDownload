@@ -4,20 +4,18 @@
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Din epostadress:</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="kalle@boll.se">            
+            <input type="email" class="form-control" id="email-${id}" aria-describedby="emailHelp" placeholder="kalle@boll.se">            
         </div>        
     </form>
 
-    <button class="btn btn-primary" id="draw" type="button" value="Rita">Rita</button>
-    <button class="btn btn-primary" id="reset" type="button" value="Sudda">Sudda</button>
-    <button id="download" class="btn btn-primary">Beställ</button>
+    <button class="btn btn-primary" id="draw-${id}" type="button" value="Rita">Rita</button>
+    <button class="btn btn-primary" id="reset-${id}" type="button" value="Sudda">Sudda</button>
+    <button id="download-${id}" class="btn btn-primary">Beställ</button>
 
-    <div id="status">
-        
-    </div>
+    <div class="status" id="status-${id}"></div>
 
-    <div class="ingen">
+    <div class="status" id="footer-${id}">
         <hr>
-        <p> ${config.footer} </p>
+        <p>${config.footer}</p>
     </div>
 </div>
