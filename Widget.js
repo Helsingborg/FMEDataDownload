@@ -37,7 +37,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
 			this.map.graphics.clear();
 			this.map.graphics.add( graphic );
 			this.toolbar.deactivate( Draw.POLYGON );
-            this.clippingGeometry = geometry.rings[0];
+            window.clippingGeometry = geometry.rings[0];
 		},
 
 		drawPolygon: function () {
@@ -64,7 +64,7 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
         },
 
         download: function() {
-            if(typeof this.clippingGeometry == 'undefined') {
+            if(typeof window.clippingGeometry == 'undefined') {
                 alert("Vänligen kontrollera att du ritat ut ditt intresseomräde.");
                 return;
             }
@@ -77,9 +77,9 @@ function(declare, BaseWidget, Draw, Map, on, dom, Color, SimpleFillSymbol, Simpl
             // Process the clippingGeometry into a WKT Polygon string
             var geometry = "POLYGON((";
 
-            for( var i = 0; i < this.clippingGeometry.length; i++ ) {
-                var lat = this.clippingGeometry[i][1];
-                var lng = this.clippingGeometry[i][0];
+            for( var i = 0; i < window.clippingGeometry.length; i++ ) {
+                var lat = window.clippingGeometry[i][1];
+                var lng = window.clippingGeometry[i][0];
                 geometry += lng+" "+lat+",";
             }
 
